@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "636719465582",
+    "project_id": "guftagu-9ed51",
+    "storage_bucket": "guftagu-9ed51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636719465582:android:d678d6406f4687e9df927f",
+        "android_client_info": {
+          "package_name": "com.prajjwal.guftagu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636719465582-5qv0bohi7ovc2hbv8om6bo0k4nq3eb3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVk6vchYvRpMF4o1okhnA1fdRdUDWLpGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636719465582-5qv0bohi7ovc2hbv8om6bo0k4nq3eb3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Guftagu</string>
+    <string name="enter_your_mobile_number">Enter your Mobile Number</string>
+    <string name="we_will_send_an_sms_to_verify_it_s_your_number">We will send an SMS to verify it is your number</string>
+    <string name="phone">Phone</string>
+    <string name="send_otp">SEND OTP</string>
+    <string name="verify_your_phone">Verify Your Phone Number</string>
+    <string name="enter_the_otp_sent_to_your_number">Enter the OTP sent to your number</string>
+    <string name="verify">Verify</string>
+    <string name="did_not_receive_sms">Did not Receive SMS?</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="next">NEXT</string>
+    <string name="_91xxxxxxxxxx">+91xxxxxxxxxx</string>
 </resources>

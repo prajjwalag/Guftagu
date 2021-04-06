@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -36,4 +37,12 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth:20.0.3'
+
+    implementation 'com.hbb20:ccp:2.5.0' //Country COde Picker
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2' //OTP PIN View
+    implementation 'de.hdodenhof:circleimageview:3.1.0' //Circle Image
 }
