@@ -13,13 +13,12 @@ import android.widget.Toast;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
 
-public class login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private CountryCodePicker ccp;
     private EditText editTextCarrierNumber;
@@ -43,7 +42,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!ccp.isValidFullNumber()) {
-                    Toast.makeText(login.this, "Please enter a valid mobile number", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Please enter a valid mobile number", Toast.LENGTH_LONG).show();
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
@@ -52,7 +51,7 @@ public class login extends AppCompatActivity {
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
                         ccp.getFullNumberWithPlus(),
                         60, TimeUnit.SECONDS,
-                        login.this,
+                        LoginActivity.this,
                         new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -64,11 +63,11 @@ public class login extends AppCompatActivity {
                             public void onVerificationFailed(@NonNull FirebaseException e) {
                                 progressBar.setVisibility(View.GONE);
                                 sendOTP.setVisibility(View.VISIBLE);
-                                Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
-                            public void onCodeSent(@NonNull String verificationID, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                            public void onCodeSent(@NonNull String verificationID, @NonNull PhoneAuthProvider.ForceResendingToken token) {
                                 progressBar.setVisibility(View.INVISIBLE);
                                 sendOTP.setVisibility(View.VISIBLE);
                                 Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);

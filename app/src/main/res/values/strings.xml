@@ -8,8 +8,17 @@
     <string name="enter_the_otp_sent_to_your_number">Enter the OTP sent to your number</string>
     <string name="verify">Verify</string>
     <string name="did_not_receive_sms">Did not Receive SMS?</string>
-    <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="next">NEXT</string>
     <string name="_91xxxxxxxxxx">+91xxxxxxxxxx</string>
+    <string name="logout">Logout</string>
+    <string name="create_profile">Create Profile</string>
+    <string name="check_number">Check Number</string>
+    <string name="did_not_received_code">Did not received code?</string>
+    <string name="name">Name</string>
+    <string name="enter_your_details">Enter your details</string>
+    <string name="people_can_search_you_on_guftagu_using_these_details">People can search you on Guftagu using these details</string>
+    <string name="search">search</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
 </resources>

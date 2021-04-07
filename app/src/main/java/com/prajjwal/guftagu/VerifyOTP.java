@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +24,12 @@ import in.aabhasjindal.otptextview.OtpTextView;
 public class VerifyOTP extends AppCompatActivity {
 
     private OtpTextView otpTextView;
-    private TextView resendOTP, changeNumber, phoneNumber;
+    private TextView changeNumber, phoneNumber;
     private String verificationID;
     private ProgressBar progressBar;
+
+    SharedPreferences boolSetupProfile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,6 @@ public class VerifyOTP extends AppCompatActivity {
         verificationID = getIntent().getStringExtra("verificationID");
 
         otpTextView = (OtpTextView) findViewById(R.id.otp_view);
-        resendOTP = findViewById(R.id.resendOTP);
         changeNumber = findViewById(R.id.changeNumber);
         progressBar = findViewById(R.id.progress_bar_verify);
 
@@ -64,16 +66,31 @@ public class VerifyOTP extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressBar.setVisibility(View.INVISIBLE);
                                     if (task.isSuccessful()) {
+
+                                        boolSetupProfile = getSharedPreferences("setupProfile", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = boolSetupProfile.edit();
+                                        editor.putBoolean("ProfileSetup", false);
+                                        editor.commit();
+
                                         Intent intent = new Intent(getApplicationContext(), SetupProfile.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
+                                        finish();
                                     } else {
                                         Toast.makeText(VerifyOTP.this, "The Verification code entered was invalid", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                 }
+            }
+        });
+        changeNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent changeNumberIntent = new Intent(VerifyOTP.this, LoginActivity.class);
+                startActivity(changeNumberIntent);
+                finish();
             }
         });
     }

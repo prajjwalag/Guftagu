@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_marginTop="100dp"
-        android:padding="20dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/circle_background"
-        android:src="@drawable/ic_authentication"
+        android:padding="30dp"
+        android:src="@drawable/ic_plane"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +23,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/archivo_narrow"
         android:text="@string/enter_your_mobile_number"
         android:textColor="@color/black"
@@ -42,12 +43,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <!-- TODO: Need to fix view with keyboard -->
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
-        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
@@ -73,9 +75,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
+        android:layout_marginTop="44dp"
         android:text="@string/send_otp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -83,11 +87,12 @@
         android:id="@+id/progress_bar_login"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/verify_OTP_btn"
         app:layout_constraintEnd_toEndOf="@+id/verify_OTP_btn"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/verify_OTP_btn"
-        app:layout_constraintTop_toTopOf="@+id/verify_OTP_btn"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="@+id/verify_OTP_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

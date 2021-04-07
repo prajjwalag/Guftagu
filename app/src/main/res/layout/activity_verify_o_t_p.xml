@@ -6,13 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".VerifyOTP">
 
+    <!-- TODO: Need to fix resend code functionality -->
+    <!-- TODO: Need to set timer for resend code -->
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_marginTop="100dp"
-        android:padding="20dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/circle_background"
+        android:padding="20dp"
         android:src="@drawable/ic_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,53 +72,27 @@
         app:otp_text_size="24dp"
         app:width="40dp" />
 
+
     <LinearLayout
         android:id="@+id/verify_Linear1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otp_view"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/otp_view">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Didn't Receive OTP? " />
-
-        <TextView
-            android:id="@+id/resendOTP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Resend OTP"
-            android:textColor="@color/color_primary" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/verify_Linear2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verify_Linear1"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Entered Wrong Number? " />
+            android:text="@string/did_not_received_code" />
 
         <TextView
             android:id="@+id/changeNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Number"
+            android:text="@string/check_number"
             android:textColor="@color/color_primary" />
 
 
