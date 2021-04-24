@@ -18,7 +18,26 @@
     <string name="name">Name</string>
     <string name="enter_your_details">Enter your details</string>
     <string name="people_can_search_you_on_guftagu_using_these_details">People can search you on Guftagu using these details</string>
-    <string name="search">search</string>
+    <string name="search">Search</string>
     <string name="profile">Profile</string>
     <string name="settings">Settings</string>
+    <string name="messages">Messages</string>
+    <string name="friends">Friends</string>
+    <string name="requests">Requests</string>
+    <string name="messages_page">MESSAGES PAGE</string>
+    <string name="friends_page">Friends Page</string>
+    <string name="requests_page">Requests Page</string>
+    <string name="last_message">Last Message</string>
+    <string name="default_time">12:00 AM</string>
+    <string name="online">online</string>
+    <string name="status">Status</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="edit_name">Edit Name</string>
+    <string name="edit_username">Edit Username</string>
+    <string name="search_user">Search user by name, username or phone</string>
+    <string name="add_friend">Add friend</string>
+    <string name="decline_request">Decline Request</string>
+    <string name="accept_request">Accept Request</string>
+    <string name="cancel_request">cancel request</string>
 </resources>

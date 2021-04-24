@@ -25,7 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
 
@@ -88,12 +87,12 @@ public class SetupProfile extends AppCompatActivity {
         userMap.put("status", "Let's do some Guftagu");
         userMap.put("image", "default");
         userMap.put("thumb_image", "default");
+        userMap.put("uid", UID);
 
         userDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
-
                     setProfile = getSharedPreferences("setupProfile", MODE_PRIVATE);
                     SharedPreferences.Editor editor = setProfile.edit();
                     editor.putBoolean("ProfileSetup", true);

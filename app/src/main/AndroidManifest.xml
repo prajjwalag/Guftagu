@@ -3,6 +3,8 @@
     package="com.prajjwal.guftagu">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Guftagu"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileSettings"></activity>
+        <activity android:name=".ChattingActivity"></activity>
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".SearchUserActivity" />
+        <activity android:name=".ProfileSettings" />
         <activity android:name=".SetupProfile" />
         <activity android:name=".VerifyOTP" />
         <activity
