@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Guftagu"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChattingActivity"></activity>
+        <activity android:name=".ChattingActivity"
+            android:theme="@style/AppThemeNo"/>
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".SearchUserActivity" />
         <activity android:name=".ProfileSettings" />

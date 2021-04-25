@@ -1,4 +1,4 @@
-package com.prajjwal.guftagu;
+package com.prajjwal.guftagu.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.prajjwal.guftagu.R;
+import com.prajjwal.guftagu.Models.SearchedUsers;
+import com.prajjwal.guftagu.UserProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

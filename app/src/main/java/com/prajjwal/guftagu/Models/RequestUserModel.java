@@ -1,26 +1,26 @@
-package com.prajjwal.guftagu;
+package com.prajjwal.guftagu.Models;
 
 public class RequestUserModel {
 
-    String request_type, name, status, image, uid;
+    String request_type, name, status, image, request_uid;
 
     public RequestUserModel() {
     }
 
-    public RequestUserModel(String request_type, String name, String status, String image, String uid) {
+    public RequestUserModel(String request_type, String name, String status, String image, String request_uid) {
         this.request_type = request_type;
         this.name = name;
         this.status = status;
         this.image = image;
-        this.uid = uid;
+        this.request_uid = request_uid;
     }
 
-    public String getUid() {
-        return uid;
+    public String getRequest_uid() {
+        return request_uid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setRequest_uid(String request_uid) {
+        this.request_uid = request_uid;
     }
 
     public String getRequest_type() {

@@ -67,7 +67,21 @@ public class UserProfileActivity extends AppCompatActivity {
         viewProfileBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserProfileActivity.this, SearchUserActivity.class));
+                startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
+            }
+        });
+
+        currentUserDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                currentUserName = snapshot.child("name").getValue().toString();
+                currentUserImage = snapshot.child("image").getValue().toString();
+                currentUserStatus= snapshot.child("status").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -151,30 +165,16 @@ public class UserProfileActivity extends AppCompatActivity {
                     sentRequestMap.put("status", userStatus);
                     sentRequestMap.put("request_type", "sent");
                     sentRequestMap.put("image", userImage);
-                    sentRequestMap.put("from_uid", currentUser.getUid());
-                    sentRequestMap.put("to_uid", user_id);
+                    sentRequestMap.put("request_uid", user_id);
                     sentRequestMap.put("date", currentDate);
 
-                    currentUserDatabase.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            currentUserName = snapshot.child("name").getValue().toString();
-                            currentUserImage = snapshot.child("image").getValue().toString();
-                            currentUserStatus= snapshot.child("status").getValue().toString();
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
                     HashMap<String, String> receivedRequestMap = new HashMap<>();
                     receivedRequestMap.put("name", currentUserName);
                     receivedRequestMap.put("status", currentUserStatus);
-                    sentRequestMap.put("image", currentUserImage);
+                    receivedRequestMap.put("image", currentUserImage);
                     receivedRequestMap.put("request_type", "received");
-                    receivedRequestMap.put("from_uid", currentUser.getUid());
-                    receivedRequestMap.put("to_uid", user_id);
+                    receivedRequestMap.put("request_uid", currentUser.getUid());
                     receivedRequestMap.put("date", currentDate);
 
 
@@ -204,6 +204,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 //Cancel Request
 
                 if(connectionStatus.equals("requested")) {
+
                     friendRequestDatabase.child(currentUser.getUid()).child(user_id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -221,11 +222,28 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 //Request Received State
                 if(connectionStatus.equals("requestReceived")) {
+
+
                     String currentDate = DateFormat.getDateTimeInstance().format(new Date());
-                    friendDatabase.child(currentUser.getUid()).child(user_id).setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    HashMap<String, String> currentUserFriendMap = new HashMap<>();
+                    currentUserFriendMap.put("name", userName);
+                    currentUserFriendMap.put("status", userStatus);
+                    currentUserFriendMap.put("image", userImage);
+                    currentUserFriendMap.put("friend_uid", user_id);
+                    currentUserFriendMap.put("date", currentDate);
+
+                    HashMap<String, String> otherUserFriendMap = new HashMap<>();
+                    otherUserFriendMap.put("name", currentUserName);
+                    otherUserFriendMap.put("status", currentUserStatus);
+                    otherUserFriendMap.put("image", currentUserImage);
+                    otherUserFriendMap.put("friend_uid", currentUser.getUid());
+                    otherUserFriendMap.put("date", currentDate);
+
+                    friendDatabase.child(currentUser.getUid()).child(user_id).setValue(currentUserFriendMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            friendDatabase.child(user_id).child(currentUser.getUid()).setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            friendDatabase.child(user_id).child(currentUser.getUid()).setValue(otherUserFriendMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     friendRequestDatabase.child(user_id).child(currentUser.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {

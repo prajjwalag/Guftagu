@@ -40,4 +40,7 @@
     <string name="decline_request">Decline Request</string>
     <string name="accept_request">Accept Request</string>
     <string name="cancel_request">cancel request</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="type_a_message">Type a Message</string>
 </resources>

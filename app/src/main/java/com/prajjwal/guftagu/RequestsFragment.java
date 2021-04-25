@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.prajjwal.guftagu.Adapters.RequestUserAdapter;
+import com.prajjwal.guftagu.Models.RequestUserModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,6 @@ public class RequestsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_requests, container, false);
-
         requestRecyclerView = view.findViewById(R.id.requests_recycler_view);
         requestRecyclerView.setHasFixedSize(true);
         requestRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -60,6 +60,7 @@ public class RequestsFragment extends Fragment {
 
                     requestUserModelList.add(requestUserModel);
                     requestUserAdapter = new RequestUserAdapter(getActivity(), requestUserModelList);
+                    requestUserAdapter.notifyDataSetChanged();
                     requestRecyclerView.setAdapter(requestUserAdapter);
                 }
             }

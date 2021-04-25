@@ -1,4 +1,4 @@
-package com.prajjwal.guftagu;
+package com.prajjwal.guftagu.Models;
 
 public class SearchedUsers {
 
