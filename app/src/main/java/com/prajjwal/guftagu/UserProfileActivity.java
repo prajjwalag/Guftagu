@@ -38,7 +38,7 @@ public class UserProfileActivity extends AppCompatActivity {
     DatabaseReference currentUserDatabase, userDatabase, friendRequestDatabase, friendDatabase;
     FirebaseUser currentUser;
 
-    String connectionStatus;
+    String connectionStatus, currentUID;
     String userName, userImage, userStatus;
     String currentUserName, currentUserImage, currentUserStatus;
 
@@ -71,6 +71,8 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: Edit username
+
         currentUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -84,6 +86,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        // TODO: Edit Request and Friend Database
 
         userDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -161,20 +165,14 @@ public class UserProfileActivity extends AppCompatActivity {
 
                     String currentDate = DateFormat.getDateTimeInstance().format(new Date());
                     HashMap<String, String> sentRequestMap = new HashMap<>();
-                    sentRequestMap.put("name", userName);
-                    sentRequestMap.put("status", userStatus);
-                    sentRequestMap.put("request_type", "sent");
-                    sentRequestMap.put("image", userImage);
                     sentRequestMap.put("request_uid", user_id);
+                    sentRequestMap.put("request_type", "sent");
                     sentRequestMap.put("date", currentDate);
 
 
                     HashMap<String, String> receivedRequestMap = new HashMap<>();
-                    receivedRequestMap.put("name", currentUserName);
-                    receivedRequestMap.put("status", currentUserStatus);
-                    receivedRequestMap.put("image", currentUserImage);
+                    receivedRequestMap.put("request_uid", currentUID);
                     receivedRequestMap.put("request_type", "received");
-                    receivedRequestMap.put("request_uid", currentUser.getUid());
                     receivedRequestMap.put("date", currentDate);
 
 
@@ -227,16 +225,10 @@ public class UserProfileActivity extends AppCompatActivity {
                     String currentDate = DateFormat.getDateTimeInstance().format(new Date());
 
                     HashMap<String, String> currentUserFriendMap = new HashMap<>();
-                    currentUserFriendMap.put("name", userName);
-                    currentUserFriendMap.put("status", userStatus);
-                    currentUserFriendMap.put("image", userImage);
                     currentUserFriendMap.put("friend_uid", user_id);
                     currentUserFriendMap.put("date", currentDate);
 
                     HashMap<String, String> otherUserFriendMap = new HashMap<>();
-                    otherUserFriendMap.put("name", currentUserName);
-                    otherUserFriendMap.put("status", currentUserStatus);
-                    otherUserFriendMap.put("image", currentUserImage);
                     otherUserFriendMap.put("friend_uid", currentUser.getUid());
                     otherUserFriendMap.put("date", currentDate);
 
@@ -316,5 +308,36 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue(timestamp);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue("online");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue("online");
     }
 }

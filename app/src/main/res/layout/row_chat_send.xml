@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:id="@+id/messageLayout"
+    android:gravity="end">
+
+    <TextView
+        android:id="@+id/chatMessage"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/messages"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingEnd="15dp"
+        android:maxWidth="310dp"
+        android:background="@drawable/bg_sender"/>
+
+    <TextView
+        android:id="@+id/chatMessageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_date_time"
+        android:textColor="@color/white"
+        android:layout_marginEnd="10dp"/>
+
+    <TextView
+        android:id="@+id/chatSeenStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delivered"
+        android:gravity="end"
+        android:textColor="@color/white"
+        android:textAlignment="textEnd"
+        android:layout_marginEnd="10dp"/>
+
+
+</LinearLayout>

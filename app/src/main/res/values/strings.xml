@@ -40,7 +40,9 @@
     <string name="decline_request">Decline Request</string>
     <string name="accept_request">Accept Request</string>
     <string name="cancel_request">cancel request</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="type_a_message">Type a Message</string>
+    <string name="default_date_time">DD/MM/YYYY 00:00 AM</string>
+    <string name="delivered">delivered</string>
+    <string name="default_date">00/00/00</string>
+    <string name="count">1</string>
 </resources>

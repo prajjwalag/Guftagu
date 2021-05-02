@@ -54,9 +54,13 @@ public class ProfileSettings extends AppCompatActivity {
     FirebaseUser mCurrentUser;
     StorageReference mImageStorage;
 
+    String currentUID;
+
     ProgressDialog progressDialog;
 
     private static final int GALLERY_PIC = 1;
+
+    //TODO : Edit
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -266,6 +270,37 @@ public class ProfileSettings extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), 2);
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue(timestamp);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue("online");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue("online");
     }
 
     @Override

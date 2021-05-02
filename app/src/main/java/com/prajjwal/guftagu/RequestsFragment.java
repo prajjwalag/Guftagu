@@ -45,6 +45,8 @@ public class RequestsFragment extends Fragment {
         return view;
     }
 
+    //TODO : Edit requests
+
     private void getAllUsers() {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

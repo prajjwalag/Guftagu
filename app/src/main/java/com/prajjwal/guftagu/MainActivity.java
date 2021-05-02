@@ -14,12 +14,15 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private Button logoutBtn;
+    FirebaseUser currentUser;
     BottomNavigationView bottomNavigationView;
+    String currentUID;
 
 
     @Override
@@ -31,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MessagesFragment()).commit();
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -83,10 +85,24 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
 
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue("online");
+        currentUser = mAuth.getCurrentUser();
         if(currentUser==null) {
             sendToStart();
         }
+
+        if(currentUser!=null) {
+            currentUID = currentUser.getUid();
+            SharedPreferences sp = getSharedPreferences("SP_USER", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("Current_USRID", currentUID);
+            editor.apply();
+        }
+
 
         SharedPreferences getProfile =getSharedPreferences("setupProfile", MODE_PRIVATE);
         boolean isProfileSetup = getProfile.getBoolean("ProfileSetup", false);
@@ -101,5 +117,27 @@ public class MainActivity extends AppCompatActivity {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
         finish();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue(timestamp);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue("online");
     }
 }

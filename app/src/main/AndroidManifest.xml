@@ -36,6 +36,8 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize" />
+
+
     </application>
 
 </manifest>

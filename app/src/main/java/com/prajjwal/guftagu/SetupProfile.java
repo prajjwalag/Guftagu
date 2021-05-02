@@ -44,6 +44,8 @@ public class SetupProfile extends AppCompatActivity {
     SharedPreferences setProfile;
 
 
+    //TODO : Edit username property
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,8 @@ public class SetupProfile extends AppCompatActivity {
         userMap.put("image", "default");
         userMap.put("thumb_image", "default");
         userMap.put("uid", UID);
+        userMap.put("lastSeen", "online");
+        userMap.put("typingTo", "none");
 
         userDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

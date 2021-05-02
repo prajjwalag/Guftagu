@@ -50,44 +50,26 @@ public class RequestUserAdapter extends RecyclerView.Adapter<RequestUserAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RequestHolder holder, int position) {
-        final String[] currentUserName = new String[1];
-        final String[] currentUserImage = new String[1];
-        final String[] currentUserStatus = new String[1];
 
         String requestUID = requestUserModelList.get(position).getRequest_uid();
-        String userImage = requestUserModelList.get(position).getImage();
-        String userName = requestUserModelList.get(position).getName();
-        String userStatus = requestUserModelList.get(position).getStatus();
-        String requestType = requestUserModelList.get(position).getRequest_type();
 
-        holder.requestUserName.setText(userName);
-        holder.requestUserStatus.setText(userStatus);
-        try
-        {
-            Picasso.get().load(userImage).placeholder(R.drawable.avatar).into(holder.requestUserImage);
-        }
-        catch (Exception e) {
-
-        }
-
-
-
-        if(requestType.equals("sent")){
-            holder.requestAcceptBtn.setVisibility(View.GONE);
-            holder.requestDeclineBtn.setVisibility(View.GONE);
-            holder.requestCancelBtn.setVisibility(View.VISIBLE);
-        }
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference currentUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid());
-        DatabaseReference friendRequestDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_Request");
-
-        currentUserDatabase.addValueEventListener(new ValueEventListener() {
+        DatabaseReference requestDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(requestUID);
+        requestDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                currentUserName[0] = snapshot.child("name").getValue().toString();
-                currentUserImage[0] = snapshot.child("image").getValue().toString();
-                currentUserStatus[0] = snapshot.child("status").getValue().toString();
+                String requestUserName = snapshot.child("name").getValue().toString();
+                String requestUserStatus = snapshot.child("status").getValue().toString();
+                String requestUserImage = snapshot.child("image").getValue().toString();
+
+                holder.requestUserName.setText(requestUserName);
+                holder.requestUserStatus.setText(requestUserStatus);
+                try
+                {
+                    Picasso.get().load(requestUserImage).placeholder(R.drawable.avatar).into(holder.requestUserImage);
+                }
+                catch (Exception e) {
+
+                }
             }
 
             @Override
@@ -95,6 +77,18 @@ public class RequestUserAdapter extends RecyclerView.Adapter<RequestUserAdapter.
 
             }
         });
+
+
+
+        String requestType = requestUserModelList.get(position).getRequest_type();
+        if(requestType.equals("sent")){
+            holder.requestAcceptBtn.setVisibility(View.GONE);
+            holder.requestDeclineBtn.setVisibility(View.GONE);
+            holder.requestCancelBtn.setVisibility(View.VISIBLE);
+        }
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference friendRequestDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_Request");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,22 +141,12 @@ public class RequestUserAdapter extends RecyclerView.Adapter<RequestUserAdapter.
             public void onClick(View v) {
                 String currentDate = DateFormat.getDateTimeInstance().format(new Date());
 
-
-
                 DatabaseReference friendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
                 HashMap<String, String> currentUserFriendMap = new HashMap<>();
-                currentUserFriendMap.put("name", userName);
-                currentUserFriendMap.put("status", userStatus);
-                currentUserFriendMap.put("image", userImage);
                 currentUserFriendMap.put("friend_uid", requestUID);
                 currentUserFriendMap.put("date", currentDate);
 
-
-
                 HashMap<String, String> otherUserFriendMap = new HashMap<>();
-                otherUserFriendMap.put("name", currentUserName[0]);
-                otherUserFriendMap.put("status", currentUserStatus[0]);
-                otherUserFriendMap.put("image", currentUserImage[0]);
                 otherUserFriendMap.put("friend_uid", currentUser.getUid());
                 otherUserFriendMap.put("date", currentDate);
 

@@ -2,25 +2,15 @@ package com.prajjwal.guftagu.Models;
 
 public class RequestUserModel {
 
-    String request_type, name, status, image, request_uid;
+    String request_type, request_uid, date;
 
     public RequestUserModel() {
     }
 
-    public RequestUserModel(String request_type, String name, String status, String image, String request_uid) {
+    public RequestUserModel(String request_type, String request_uid, String date) {
         this.request_type = request_type;
-        this.name = name;
-        this.status = status;
-        this.image = image;
         this.request_uid = request_uid;
-    }
-
-    public String getRequest_uid() {
-        return request_uid;
-    }
-
-    public void setRequest_uid(String request_uid) {
-        this.request_uid = request_uid;
+        this.date = date;
     }
 
     public String getRequest_type() {
@@ -31,27 +21,19 @@ public class RequestUserModel {
         this.request_type = request_type;
     }
 
-    public String getName() {
-        return name;
+    public String getRequest_uid() {
+        return request_uid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRequest_uid(String request_uid) {
+        this.request_uid = request_uid;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDate() {
+        return date;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

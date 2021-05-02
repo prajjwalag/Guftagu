@@ -11,6 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.prajjwal.guftagu.ChattingActivity;
 import com.prajjwal.guftagu.Models.FriendsModel;
 import com.prajjwal.guftagu.R;
@@ -41,18 +46,31 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendHold
     @Override
     public void onBindViewHolder(@NonNull FriendHolder holder, int position) {
         String friendUID = friendsModelList.get(position).getFriend_uid();
-        String friendImage = friendsModelList.get(position).getImage();
-        String friendName = friendsModelList.get(position).getName();
-        String friendStatus = friendsModelList.get(position).getStatus();
 
-        holder.friendName.setText(friendName);
-        holder.friendStatus.setText(friendStatus);
+        DatabaseReference friendReference = FirebaseDatabase.getInstance().getReference().child("Users").child(friendUID);
+        friendReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String friendName = snapshot.child("name").getValue().toString();
+                String friendStatus =  snapshot.child("status").getValue().toString();
+                String friendImage = snapshot.child("image").getValue().toString();
 
-        try {
-            Picasso.get().load(friendImage).placeholder(R.drawable.avatar).into(holder.friendProfileImage);
-        }
-        catch (Exception e) {
-        }
+                holder.friendName.setText(friendName);
+                holder.friendStatus.setText(friendStatus);
+
+                try {
+                    Picasso.get().load(friendImage).placeholder(R.drawable.avatar).into(holder.friendProfileImage);
+                }
+                catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         holder.sendMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override

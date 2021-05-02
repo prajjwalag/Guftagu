@@ -30,6 +30,9 @@ public class SearchUserActivity extends AppCompatActivity {
     RecyclerView searchedUserRecycler;
     SearchedUserAdapter searchedUserAdapter;
     List<SearchedUsers> searchedUsersList;
+    String currentUID;
+
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,5 +106,37 @@ public class SearchUserActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue(timestamp);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue("online");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue("online");
     }
 }
