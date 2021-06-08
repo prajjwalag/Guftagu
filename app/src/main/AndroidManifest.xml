@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -14,8 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Guftagu"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChattingActivity"
-            android:theme="@style/AppThemeNo"/>
+        <activity android:name=".UserAccessActivity"></activity>
+
+        <receiver android:name=".OTP_Reader">
+            <intent-filter>
+                <action android:name="android.provider.Telephony" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ChattingActivity"
+            android:theme="@style/AppThemeNo" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".SearchUserActivity" />
         <activity android:name=".ProfileSettings" />
@@ -36,8 +49,6 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize" />
-
-
     </application>
 
 </manifest>

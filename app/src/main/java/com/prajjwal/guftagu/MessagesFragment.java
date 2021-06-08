@@ -39,31 +39,32 @@ public class MessagesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_messages, container, false);
 
-        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        chatListRecyclerView = view.findViewById(R.id.recyclerView_allMessages);
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            chatListRecyclerView = view.findViewById(R.id.recyclerView_allMessages);
 
-        chatListModels = new ArrayList<>();
+            chatListModels = new ArrayList<>();
 
-        chatListReference = FirebaseDatabase.getInstance().getReference().child("ChatList").child(currentUID);
-        chatListReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                chatListModels.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ChatListModel chatListModel = dataSnapshot.getValue(ChatListModel.class);
-                    chatListModels.add(chatListModel);
-                    chatListAdapter = new ChatListAdapter(getActivity(), chatListModels);
-                    chatListRecyclerView.setAdapter(chatListAdapter);
+            chatListReference = FirebaseDatabase.getInstance().getReference().child("ChatList").child(currentUID);
+            chatListReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    chatListModels.clear();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        ChatListModel chatListModel = dataSnapshot.getValue(ChatListModel.class);
+                        chatListModels.add(chatListModel);
+                        chatListAdapter = new ChatListAdapter(getActivity(), chatListModels);
+                        chatListRecyclerView.setAdapter(chatListAdapter);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
 
-
+        }
         return view;
     }
 

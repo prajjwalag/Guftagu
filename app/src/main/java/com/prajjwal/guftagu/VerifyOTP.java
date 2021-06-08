@@ -2,9 +2,13 @@ package com.prajjwal.guftagu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -37,6 +41,8 @@ public class VerifyOTP extends AppCompatActivity {
         setContentView(R.layout.activity_verify_o_t_p);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        requestSMSPermission();
+
         verificationID = getIntent().getStringExtra("verificationID");
 
         otpTextView = (OtpTextView) findViewById(R.id.otp_view);
@@ -45,6 +51,8 @@ public class VerifyOTP extends AppCompatActivity {
 
         phoneNumber = findViewById(R.id.verifyPhoneNumber);
         phoneNumber.setText(getIntent().getStringExtra("mobile"));
+
+        new OTP_Reader().setOtp(otpTextView);
 
         otpTextView.requestFocus();
         otpTextView.setOtpListener(new OTPListener() {
@@ -93,5 +101,20 @@ public class VerifyOTP extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void requestSMSPermission() {
+
+        String permission = Manifest.permission.RECEIVE_SMS;
+
+        int grant = ContextCompat.checkSelfPermission(this, permission);
+
+        if(grant != PackageManager.PERMISSION_GRANTED) {
+            String[] permissions = new String[1];
+            permissions[0] = permission;
+
+            ActivityCompat.requestPermissions(this, permissions, 1);
+        }
+
     }
 }

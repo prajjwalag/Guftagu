@@ -340,4 +340,16 @@ public class UserProfileActivity extends AppCompatActivity {
                 getReference().child("Users").child(currentUID).child("lastSeen");
         lastSeenReference.setValue("online");
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        currentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        DatabaseReference lastSeenReference = FirebaseDatabase.getInstance().
+                getReference().child("Users").child(currentUID).child("lastSeen");
+        lastSeenReference.setValue(timestamp);
+    }
 }
